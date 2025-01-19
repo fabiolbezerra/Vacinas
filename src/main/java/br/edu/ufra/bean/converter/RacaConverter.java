@@ -35,7 +35,7 @@ public class RacaConverter implements Converter {
 
     @Override
     public String getAsString(FacesContext fc, UIComponent uic, Object o) {
-        if (o == null || !(o instanceof Raca)) {
+        if (!(o instanceof Raca)) {
             return null;
         }
         Raca raca = (Raca) o;
