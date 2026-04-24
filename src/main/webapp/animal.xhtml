@@ -18,8 +18,8 @@
             <p:outputLabel value="Nome"/>
             <p:inputText value="#{animalBean.animal.nome}"/>
 
-            <p:outputLabel value="Dono"/>
-            <p:inputText value="#{animalBean.animal.dono}"/>
+            <p:outputLabel value="Dono" for="itDono"/>
+            <p:inputText id="itDono" value="#{animalBean.animal.dono}" required="true" requiredMessage="Dono é um campo necessário"/>
 
             <p:outputLabel value="Telefone"/>
             <p:inputMask mask="999999999" value="#{animalBean.animal.telefone}"/>
@@ -27,7 +27,7 @@
             <p:outputLabel value="Raça"/>
             <p:selectOneMenu converter="racaConverter" value="#{animalBean.animal.raca}">
                 <f:selectItem noSelectionOption="true" itemLabel="Selecione a raça"/>
-                <f:selectItems value="#{racaBean.racas}" var="r" itemLabel="#{r.nome}" itemValue="#{r}"/>
+                <f:selectItems value="#{racaBean.racas}" var="r" itemLabel="#{r.id} - #{r.nome}" itemValue="#{r}"/>
             </p:selectOneMenu>
 
             <p:outputLabel value="Tipo"/>
