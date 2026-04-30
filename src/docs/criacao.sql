@@ -2,16 +2,17 @@
 
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
-SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
 -- -----------------------------------------------------
 -- Schema vacinas
 -- -----------------------------------------------------
+DROP SCHEMA IF EXISTS `vacinas` ;
 
 -- -----------------------------------------------------
 -- Schema vacinas
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `vacinas` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ;
+CREATE SCHEMA IF NOT EXISTS `vacinas` DEFAULT CHARACTER SET utf8 ;
 USE `vacinas` ;
 
 -- -----------------------------------------------------
@@ -20,9 +21,9 @@ USE `vacinas` ;
 DROP TABLE IF EXISTS `vacinas`.`raca` ;
 
 CREATE TABLE IF NOT EXISTS `vacinas`.`raca` (
-  `id` INT NOT NULL AUTO_INCREMENT COMMENT '',
-  `nome` VARCHAR(50) NOT NULL COMMENT '',
-  PRIMARY KEY (`id`)  COMMENT '')
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `nome` VARCHAR(50) NOT NULL,
+  PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
 
@@ -32,20 +33,20 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `vacinas`.`animal` ;
 
 CREATE TABLE IF NOT EXISTS `vacinas`.`animal` (
-  `id` INT NOT NULL AUTO_INCREMENT COMMENT '',
-  `nome` VARCHAR(100) NOT NULL COMMENT '',
-  `dono` VARCHAR(100) NOT NULL COMMENT '',
-  `telefone` VARCHAR(9) NOT NULL COMMENT '',
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `nome` VARCHAR(100) NOT NULL,
+  `dono` VARCHAR(100) NOT NULL,
+  `telefone` VARCHAR(9) NOT NULL,
   `tipo` CHAR NOT NULL COMMENT 'G - Gato\nC - Cachorro',
-  `nascimento` DATE NULL COMMENT '',
-  `raca` INT NOT NULL COMMENT '',
-  PRIMARY KEY (`id`)  COMMENT '',
-  INDEX `fk_animal_raca1_idx` (`raca` ASC)  COMMENT '',
+  `nascimento` DATE NULL,
+  `raca` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_animal_raca1_idx` (`raca` ASC),
   CONSTRAINT `fk_animal_raca1`
     FOREIGN KEY (`raca`)
     REFERENCES `vacinas`.`raca` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -55,17 +56,17 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `vacinas`.`vacina` ;
 
 CREATE TABLE IF NOT EXISTS `vacinas`.`vacina` (
-  `id` INT NOT NULL AUTO_INCREMENT COMMENT '',
-  `nome` VARCHAR(100) NOT NULL COMMENT '',
-  `data` DATE NOT NULL COMMENT '',
-  `animal` INT NOT NULL COMMENT '',
-  PRIMARY KEY (`id`)  COMMENT '',
-  INDEX `fk_vacina_animal_idx` (`animal` ASC)  COMMENT '',
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `nome` VARCHAR(100) NOT NULL,
+  `data` DATE NOT NULL,
+  `animal` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_vacina_animal_idx` (`animal` ASC),
   CONSTRAINT `fk_vacina_animal`
     FOREIGN KEY (`animal`)
     REFERENCES `vacinas`.`animal` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
